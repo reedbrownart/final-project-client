@@ -1,38 +1,103 @@
 .App {
-  text-align: center;
+    text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+
+/*ANIMATION */
+
+@keyframes fading {
+    0% {
+        opacity: .8;
+    }
+    100% {
+        opacity: .3;
+    }
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+@keyframes saturate {
+    0% {
+        filter: saturate(1);
+    }
+    25% {
+        filter: saturate(2);
+    }
+    50% {
+        filter: saturate(5);
+    }
+    100% {
+        filter: saturate(20);
+    }
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+@keyframes inversion {
+    0% {
+        filter: invert(0);
+    }
+    100% {
+        filter: invert(1);
+    }
 }
 
-.App-link {
-  color: #61dafb;
+@keyframes hueRotate {
+    0% {
+        filter: hue-rotate(0deg);
+    }
+    100% {
+        filter: hue-rotate(360deg);
+    }
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+@keyframes colorChange {
+    0% {
+        background-color: white
+    }
+    25% {
+        background-color: yellow;
+    }
+    50% {
+        background-color: blue;
+    }
+    75% {
+        background-color: red;
+    }
+    100% {
+        background-color: black;
+    }
+}
+
+.coolImg {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 80%;
+    z-index: -1;
+}
+
+img {
+    height: 150px;
+    width: 150px;
+}
+
+.artImg {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 80%;
+    z-index: -1;
+}
+
+
+/* .artFrame {
+    height: 80%;
+    width: 80%;
+} */
+
+div {
+    border: 3px black solid;
+    margin: 10px;
+    padding: 10px;
 }
