@@ -1,11 +1,12 @@
 import React, { Component, BaseSyntheticEvent } from 'react';
 import ArtPiece from './ArtPiece';
-import { IArtPiece, IProps } from '../Interfaces/Interfaces';
+import { IArtPiece, IURLProps } from '../Interfaces/Interfaces';
 import { stringify } from 'querystring';
 
-class ArtFrame extends Component<{}, IArtPiece> {
-    constructor() {
-        super('')
+
+class ArtFrame extends Component<IURLProps, IArtPiece> {
+    constructor(props: IURLProps) {
+        super(props)
         this.state = {
             title: "",
             images: [],
@@ -16,7 +17,14 @@ class ArtFrame extends Component<{}, IArtPiece> {
     }
 
     fetchData = () => {
-        fetch(`https://gif-gallery-server.herokuapp.com/art/3`)
+        const query = new URLSearchParams(this.props.location.search);
+        console.log(query.get('art'));
+
+        const artID = Number(query.get('art'))
+
+        console.log(artID)
+
+        fetch(`${process.env.REACT_APP_GIF_GALLERY_SERVER}/art/${artID}`)
             .then((res) => {
                 console.log(res);
                 return res.json();

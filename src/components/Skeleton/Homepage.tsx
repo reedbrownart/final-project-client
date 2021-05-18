@@ -48,8 +48,8 @@ class Homepage extends Component<{}, IState> {
                       title={art.title}
                       artist="Need to add Artist's Name to Model"
                       thumbnail="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Mona_Lisa%2C_by_Leonardo_da_Vinci%2C_from_C2RMF_retouched.jpg/1200px-Mona_Lisa%2C_by_Leonardo_da_Vinci%2C_from_C2RMF_retouched.jpg"
-                      artLink={`/art`}
-                      artistLink={`/artist/${art.userId}`}
+                      artLink={`/art?art=${art.id}`}
+                      artistLink={`/artist?artist=${art.userId}`}
                     />
                   </Col>
                 );

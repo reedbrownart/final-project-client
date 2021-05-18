@@ -1,3 +1,5 @@
+import { RouteComponentProps } from 'react-router-dom';
+
 export interface IArtPiece {
     title: string,
     images: [],
@@ -18,3 +20,5 @@ export interface ISession {
 export interface IState {
     arts: IArtPiece[]
 }
+
+export interface IURLProps extends RouteComponentProps{}
