@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 const ArtPiece = (props) => {
     const { title, artArray, audioLink } = props;
@@ -28,13 +28,14 @@ const ArtPiece = (props) => {
                                     animationIterationCount: "infinite",
                                     animationDirection: "alternate"
                                 }
-                            } />
+                            }
+                            alt = "" />
                     )
                 })}
                 <iframe 
                     width="0" 
                     height="0" 
-                    src="https://www.youtube.com/embed/bgoToLAwgtE?autoplay=1&rel=0&loop=1&controls=0" 
+                    src= {`${audioLink}?autoplay=1&rel=0&loop=1&controls=0`} 
                     title="YouTube video player" 
                     frameBorder="0" 
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" />

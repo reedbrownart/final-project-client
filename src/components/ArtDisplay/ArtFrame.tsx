@@ -1,7 +1,6 @@
-import React, { Component, BaseSyntheticEvent } from 'react';
+import React, { Component } from 'react';
 import ArtPiece from './ArtPiece';
 import { IArtPiece, IURLProps } from '../Interfaces/Interfaces';
-import { stringify } from 'querystring';
 
 
 class ArtFrame extends Component<IURLProps, IArtPiece> {
@@ -9,6 +8,7 @@ class ArtFrame extends Component<IURLProps, IArtPiece> {
         super(props)
         this.state = {
             title: "",
+            artistName: "",
             images: [],
             audio: "",
             id: 0,
@@ -33,6 +33,7 @@ class ArtFrame extends Component<IURLProps, IArtPiece> {
                 console.log(json);
                 this.setState({
                     title: json.title,
+                    artistName: json.artistName,
                     images: json.images,
                     audio: json.audio,
                     id: json.id,
