@@ -31,12 +31,12 @@ class App extends Component<{}, {}> {
       <div className="App">
         <Router>
           <Navbar/>
-          {/* <Switch>
+          <Switch>
             <Route exact path="/" component = {Homepage} />
             <Route path="/mygallery"component = {MyGallery} /> 
             <Route path="/art" component = {ArtFrame} />
             <Route path="/artist" component = {ArtistProfile} />
-          </Switch> */}
+          </Switch>
         </Router>
       </div>
     );
