@@ -71,7 +71,7 @@ class Navbar extends Component<{}, ILoginState> {
         {/* This is a ternary that changes based on whether the user "isLoggedIn" */}
 
         {this.context.isAuth ? (
-          <div>
+          <div className = "loggedIn">
             {/* If the user IS logged in the navbar will have a link to their gallery and a logout button */}
 
             <Link to={this.artistID}>
@@ -80,7 +80,7 @@ class Navbar extends Component<{}, ILoginState> {
             <Button onClick={() => this.context.setToken(null)}>Logout</Button>
           </div>
         ) : (
-          <div>
+          <div className = "loggedOut">
 
             {/* If the user isn't logged in a Form is generated which has a email and password field
             The form has a login and register button (which opens a register modal) */}
@@ -89,9 +89,11 @@ class Navbar extends Component<{}, ILoginState> {
               onSubmit={(e) => {
                 this.handleLogin(e);
               }}
+              className = "loginForm"
             >
-              <FormGroup>
-                <Label htmlFor="email">Email:</Label>
+              <div className = "loginInputs">
+              <FormGroup className = "formGroup">
+                <Label htmlFor="email">Email:  </Label>
                 <Input
                   type="text"
                   id="email"
@@ -100,9 +102,8 @@ class Navbar extends Component<{}, ILoginState> {
                   required
                 />
               </FormGroup>
-              <FormGroup>
-                <Label htmlFor="password">Password:</Label>
-                <br />
+              <FormGroup className = "formGroup">
+                <Label htmlFor="password">Password:  </Label>
                 <Input
                   type="password"
                   id="password"
@@ -111,6 +112,7 @@ class Navbar extends Component<{}, ILoginState> {
                   required
                 />
               </FormGroup>
+              </div>
               <div>
                 <Button type="submit">Login</Button>
               </div>

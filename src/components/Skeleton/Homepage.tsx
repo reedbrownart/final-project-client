@@ -39,13 +39,14 @@ class Homepage extends Component<{}, IState> {
     return (
       <div>
         <div className="logo">
-          <h1>Gif Gallery!</h1>
+          Gif Gallery
         </div>
         <div className="tagline">
-          <h1>An open art gallery for internet artists</h1>
+          An open art gallery for internet artists
+          <br/>
+          Powered by GIPHY and Youtube
         </div>
         <div className="recent grid">
-          <h1>The most recent artwork</h1>
 
           {/* This maps through the recent art array and renders a container full of Preview components
           which are passed the props of Art Title, Artist Name, Thumbnail (strech goal), and links to the
