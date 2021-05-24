@@ -1,5 +1,5 @@
 import React, { BaseSyntheticEvent, Component } from "react";
-import { Button, Form, Input, FormGroup, Label } from "reactstrap";
+import { Button, Form, Input, FormGroup, Label, InputGroup, InputGroupAddon, InputGroupText } from "reactstrap";
 import Register from "../Modals/Register";
 import {
   Link,
@@ -71,7 +71,7 @@ class Navbar extends Component<{}, ILoginState> {
         {/* This is a ternary that changes based on whether the user "isLoggedIn" */}
 
         {this.context.isAuth ? (
-          <div className = "loggedIn">
+          <div className="loggedIn">
             {/* If the user IS logged in the navbar will have a link to their gallery and a logout button */}
 
             <Link to={this.artistID}>
@@ -80,7 +80,7 @@ class Navbar extends Component<{}, ILoginState> {
             <Button onClick={() => this.context.setToken(null)}>Logout</Button>
           </div>
         ) : (
-          <div className = "loggedOut">
+          <div className="loggedOut">
 
             {/* If the user isn't logged in a Form is generated which has a email and password field
             The form has a login and register button (which opens a register modal) */}
@@ -89,38 +89,41 @@ class Navbar extends Component<{}, ILoginState> {
               onSubmit={(e) => {
                 this.handleLogin(e);
               }}
-              className = "loginForm"
+              className="loginForm"
             >
-              <div className = "loginInputs">
-              <FormGroup className = "formGroup">
-                <Label htmlFor="email">Email:  </Label>
-                <Input
-                  type="text"
-                  id="email"
-                  value={this.state.email}
-                  onChange={(e) => this.setState({ email: e.target.value })}
-                  required
-                />
-              </FormGroup>
-              <FormGroup className = "formGroup">
-                <Label htmlFor="password">Password:  </Label>
-                <Input
-                  type="password"
-                  id="password"
-                  value={this.state.password}
-                  onChange={(e) => this.setState({ password: e.target.value })}
-                  required
-                />
-              </FormGroup>
+              <div className="loginInputs">
+                <FormGroup className="formGroup">
+                  <Input
+                    type="text"
+                    id="email"
+                    value={this.state.email}
+                    onChange={(e) => this.setState({ email: e.target.value })}
+                    required
+                    classname="inputBox"
+                    placeholder="email"
+                  />
+                </FormGroup>
+                <FormGroup className="formGroup">
+
+                  <Input
+                    type="password"
+                    id="password"
+                    value={this.state.password}
+                    onChange={(e) => this.setState({ password: e.target.value })}
+                    required
+                    classname="inputBox"
+                    placeholder="password"
+                  />
+                </FormGroup>
               </div>
               <div>
                 <Button type="submit">Login</Button>
+                <Register
+                  buttonLabel="Register"
+                  className="register"
+                />
               </div>
             </Form>
-            <Register
-              buttonLabel="Register"
-              className="register"
-            />
           </div>
         )}
       </div>

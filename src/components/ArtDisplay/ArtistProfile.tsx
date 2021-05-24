@@ -24,7 +24,7 @@ class Artist extends Component<IURLProps, IState> {
       method: "GET",
       headers: new Headers({
         "Content-Type": "application/json",
-        Authorization:
+        "Authorization":
           "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNjIxMzU4MzExLCJleHAiOjE2MjE0NDQ3MTF9.szSRc8wyAI69b8S_tnIeNlEfhS2yfHZKad6PVQ6wiLI",
       }),
     })

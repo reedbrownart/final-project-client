@@ -68,7 +68,7 @@ class UpdateArt extends Component<IUpdateArtProps, ICreateArt> {
         method: "DELETE",
         headers: new Headers({
           "Content-Type": "application/json",
-          Authorization: `${this.context.token}`,
+          "Authorization": `${this.context.token}`,
         }),
       }
     );
@@ -96,7 +96,7 @@ class UpdateArt extends Component<IUpdateArtProps, ICreateArt> {
         }),
         headers: new Headers({
           "Content-Type": "application/json",
-          Authorization: `${this.context.token}`,
+          "Authorization": `${this.context.token}`,
         }),
       }
     )

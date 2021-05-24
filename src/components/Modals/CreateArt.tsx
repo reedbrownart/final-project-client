@@ -108,11 +108,11 @@ class CreateArt extends Component<ICreateArtProps, ICreateArt> {
 
         //THIS IS WHERE THE CONTEXT USER TOKEN WILL GET INSERTED
 
-        Authorization: `${this.context.token}`,
+        "Authorization": `${this.context.token}`,
       }),
     })
       .then((res) => res.json())
-      .then((data) => {})
+      .then((data) => { })
       .catch((err) => console.log(err));
     this.toggle();
   };
