@@ -71,7 +71,7 @@ class MyGallery extends Component<IURLProps, IState> {
   }
 
   componentDidUpdate() {
-    //this.fetchArtGallery();
+    this.fetchArtGallery();
   }
 
   render() {
@@ -98,8 +98,8 @@ class MyGallery extends Component<IURLProps, IState> {
                     artLink={`/art?art=${art.id}`}
                     artistLink={`/artist?artist=${art.userId}`}
                   />
-                  {/* <UpdateArt buttonLabel = "update" className = "updateArt" artID = {art.id}/>
-                  <Button>Get Link</Button> */}
+                  <UpdateArt buttonLabel = "update" className = "updateArt" artID = {art.id}/>
+                  <Button>Get Link</Button>
                 </Col>
               );
             })}

@@ -12,9 +12,7 @@ import {
 import { ICreateArt, ICreateArtProps } from "../Interfaces/Interfaces";
 import UserContext from "../../context/UserContext";
 import YoutubePreview from "./YoutubePreview";
-import GiphyPreview from './GiphyPreview';
-
-const youtubeApiKey = "AIzaSyDWx5vHuDnMtqmZTMtxcqr1K4fnSGHD_sI";
+import GiphyPreview from "./GiphyPreview";
 
 class CreateArt extends Component<ICreateArtProps, ICreateArt> {
   static contextType = UserContext;
@@ -123,14 +121,14 @@ class CreateArt extends Component<ICreateArtProps, ICreateArt> {
     console.log("fetching youtube");
 
     fetch(
-      `https://www.googleapis.com/youtube/v3/search?part=snippet&key=${youtubeApiKey}&type=video&q=${this.state.audioSearch}`
+      `https://www.googleapis.com/youtube/v3/search?part=snippet&key=AIzaSyDWx5vHuDnMtqmZTMtxcqr1K4fnSGHD_sI&type=video&q=${this.state.audioSearch}`
     )
       .then((res) => res.json())
       .then((json) => {
         console.log(json);
         this.setState({
           youtubeResults: json.items,
-          audio: ""
+          audio: "",
         });
       });
   };
@@ -138,31 +136,33 @@ class CreateArt extends Component<ICreateArtProps, ICreateArt> {
   fetchGiphy = () => {
     console.log("fetching giphy");
 
-    fetch(`https://api.giphy.com/v1/gifs/search?api_key=Enmm3UZNiUyNOiajUcJ4QeIAtOhqIMWU&q=${this.state.gifOneSearch}&limit=25&offset=0&rating=g&lang=en`)
+    fetch(
+      `https://api.giphy.com/v1/gifs/search?api_key=Enmm3UZNiUyNOiajUcJ4QeIAtOhqIMWU&q=${this.state.gifOneSearch}&limit=25&offset=0&rating=g&lang=en`
+    )
       .then((res) => res.json())
       .then((json) => {
         console.log(json);
         this.setState({
           gifOneResults: json.data,
-          gifOneURL: ""
-        })
-      })
-
+          gifOneURL: "",
+        });
+      });
   };
 
   fetchGiphyTwo = () => {
     console.log("fetching giphy");
 
-    fetch(`https://api.giphy.com/v1/gifs/search?api_key=Enmm3UZNiUyNOiajUcJ4QeIAtOhqIMWU&q=${this.state.gifTwoSearch}&limit=25&offset=0&rating=g&lang=en`)
+    fetch(
+      `https://api.giphy.com/v1/gifs/search?api_key=Enmm3UZNiUyNOiajUcJ4QeIAtOhqIMWU&q=${this.state.gifTwoSearch}&limit=25&offset=0&rating=g&lang=en`
+    )
       .then((res) => res.json())
       .then((json) => {
         console.log(json);
         this.setState({
           gifTwoResults: json.data,
-          gifTwoURL: ""
-        })
-      })
-
+          gifTwoURL: "",
+        });
+      });
   };
 
   //FUNCTIONS FOR STORING THE CHOSEN RESULTS FROM YOUTUBE / GIPHY SEARCHES IN THE CREATE ART MODAL
@@ -224,9 +224,7 @@ class CreateArt extends Component<ICreateArtProps, ICreateArt> {
           <ModalHeader toggle={this.toggle}>Create New Art</ModalHeader>
           <ModalBody>
             <Form onSubmit={this.createArt}>
-
               {/* INPUTS FOR TITLE AND AUDIO */}
-
               <FormGroup>
                 <Label htmlFor="title">title:</Label>
                 <Input
@@ -250,9 +248,14 @@ class CreateArt extends Component<ICreateArtProps, ICreateArt> {
                 />
                 <Button onClick={this.fetchYoutube}>Search</Button>
               </FormGroup>
-
+              <div>
+                <YoutubePreview
+                  results={this.state.youtubeResults}
+                  saveYoutube={this.saveYoutube}
+                  audio={this.state.audio}
+                />
+              </div>
               {/* GIF ONE INPUT FORM GROUPS  */}
-
               <FormGroup>
                 <Label htmlFor="gifOneURL">gifOneURL:</Label>
                 <Input
@@ -266,6 +269,13 @@ class CreateArt extends Component<ICreateArtProps, ICreateArt> {
                 />
                 <Button onClick={this.fetchGiphy}>Search</Button>
               </FormGroup>
+              <div>
+                <GiphyPreview
+                  results={this.state.gifOneResults}
+                  saveGif={this.saveGifOne}
+                  gifURL={this.state.gifOneURL}
+                />
+              </div>
               <FormGroup>
                 <Label for="exampleSelectMulti">Select Animation Styles</Label>
                 <Input
@@ -297,9 +307,7 @@ class CreateArt extends Component<ICreateArtProps, ICreateArt> {
                   required
                 />
               </FormGroup>
-
               {/* GIF TWO INPUT FORM GROUPS  */}
-
               <FormGroup>
                 <Label htmlFor="gifTwoURL">gifTwoURL:</Label>
                 <Input
@@ -313,6 +321,13 @@ class CreateArt extends Component<ICreateArtProps, ICreateArt> {
                 />
                 <Button onClick={this.fetchGiphyTwo}>Search</Button>
               </FormGroup>
+              <div>
+                <GiphyPreview
+                  results={this.state.gifTwoResults}
+                  saveGif={this.saveGifTwo}
+                  gifURL={this.state.gifTwoURL}
+                />
+              </div>
               <FormGroup>
                 <Label for="exampleSelectMulti">Select Animation Style</Label>
                 <Input
@@ -351,30 +366,6 @@ class CreateArt extends Component<ICreateArtProps, ICreateArt> {
                 Cancel
               </Button>
             </Form>
-            <div>
-              <h1>This is where the Youtube results will go</h1>
-              <YoutubePreview
-                results={this.state.youtubeResults}
-                saveYoutube={this.saveYoutube}
-                audio = {this.state.audio}
-              />
-            </div>
-            <div>
-              <h1>This is where the Giphy results will go</h1>
-              <GiphyPreview
-                results={this.state.gifOneResults}
-                saveGif={this.saveGifOne}
-                gifURL = {this.state.gifOneURL}
-              />
-            </div>
-            <div>
-              <h1>This is where the Second Giphy results will go</h1>
-              <GiphyPreview
-                results={this.state.gifTwoResults}
-                saveGif={this.saveGifTwo}
-                gifURL = {this.state.gifTwoURL}
-              />
-            </div>
           </ModalBody>
         </Modal>
       </div>
