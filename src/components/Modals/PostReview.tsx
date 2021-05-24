@@ -11,6 +11,7 @@ import {
 } from "reactstrap";
 import { IPostReviewState, IReviewModalProps } from "../Interfaces/Interfaces";
 import UserContext from '../../context/UserContext';
+import APIURL from '../../helpers/environment';
 
 class PostReview extends Component<IReviewModalProps, IPostReviewState> {
   static contextType = UserContext;
@@ -34,7 +35,7 @@ class PostReview extends Component<IReviewModalProps, IPostReviewState> {
   postReview = (e: BaseSyntheticEvent) => {
     e.preventDefault();
 
-    fetch(`https://gif-gallery-server.herokuapp.com/reviews/create/${this.props.artID}`, {
+    fetch(`${APIURL}/reviews/create/${this.props.artID}`, {
       method: "POST",
       body: JSON.stringify({
         rating: this.state.rating,

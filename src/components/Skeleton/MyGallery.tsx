@@ -7,6 +7,7 @@ import CreateArt from "../Modals/CreateArt";
 import UpdateArt from "../Modals/UpdateArt";
 import Preview from "../ArtDisplay/Preview";
 import UserContext from "../../context/UserContext";
+import APIURL from '../../helpers/environment';
 
 class MyGallery extends Component<IURLProps, IState> {
   static contextType = UserContext;
@@ -29,7 +30,7 @@ class MyGallery extends Component<IURLProps, IState> {
 
     const artistID = Number(query.get("artist"));
 
-    fetch(`https://gif-gallery-server.herokuapp.com/art/gallery/${artistID}`)
+    fetch(`${APIURL}/art/gallery/${artistID}`)
       .then((response) => response.json())
       .then((json) => {
         console.log(json);
@@ -46,7 +47,7 @@ class MyGallery extends Component<IURLProps, IState> {
 
     const artistID = Number(query.get("artist"));
 
-    fetch(`${process.env.REACT_APP_GIF_GALLERY_SERVER}/reviews/tenreviews/${artistID}`)
+    fetch(`${APIURL}/reviews/tenreviews/${artistID}`)
         .then((res) => {
             
             return res.json();

@@ -14,6 +14,7 @@ import { ICreateArt, IUpdateArtProps } from "../Interfaces/Interfaces";
 import UserContext from "../../context/UserContext";
 import YoutubePreview from "./YoutubePreview";
 import GiphyPreview from "./GiphyPreview";
+import APIURL from '../../helpers/environment';
 
 class UpdateArt extends Component<IUpdateArtProps, ICreateArt> {
   static contextType = UserContext;
@@ -63,7 +64,7 @@ class UpdateArt extends Component<IUpdateArtProps, ICreateArt> {
 
   deleteArt = () => {
     fetch(
-      `https://gif-gallery-server.herokuapp.com/art/delete/${this.props.artID}`,
+      `${APIURL}/art/delete/${this.props.artID}`,
       {
         method: "DELETE",
         headers: new Headers({
@@ -82,7 +83,7 @@ class UpdateArt extends Component<IUpdateArtProps, ICreateArt> {
     console.log("updating art!");
 
     fetch(
-      `https://gif-gallery-server.herokuapp.com/art/update/${this.props.artID}`,
+      `${APIURL}/art/update/${this.props.artID}`,
       {
         method: "PUT",
         body: JSON.stringify({

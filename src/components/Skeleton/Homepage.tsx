@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { IState } from "../Interfaces/Interfaces";
 import { Container, Row, Col } from "reactstrap";
 import Preview from "../ArtDisplay/Preview";
+import APIURL from '../../helpers/environment';
 
 // IState interface allows for storage of art objects
 
@@ -18,7 +19,7 @@ class Homepage extends Component<{}, IState> {
   // This fetches the ten most recent arts and stores them in the stateful variable "arts"
 
   fetchRecentArt = () => {
-    fetch("https://gif-gallery-server.herokuapp.com/art/")
+    fetch(`${APIURL}/art/`)
     .then((response) => response.json())
     .then((json) => {
       console.log(json);

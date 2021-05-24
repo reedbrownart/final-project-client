@@ -11,6 +11,7 @@ import {
 } from "reactstrap";
 import { IModal, IModalProps } from "../Interfaces/Interfaces";
 import UserContext from '../../context/UserContext';
+import APIURL from '../../helpers/environment';
 
 class Register extends Component<IModalProps, IModal> {
   static contextType = UserContext;
@@ -35,7 +36,7 @@ class Register extends Component<IModalProps, IModal> {
 
   handleRegister = (e: BaseSyntheticEvent) => {
     e.preventDefault();
-    fetch(`https://gif-gallery-server.herokuapp.com/user/register`, {
+    fetch(`${APIURL}/user/register`, {
       method: 'POST',
       body: JSON.stringify({
         email: this.state.email,

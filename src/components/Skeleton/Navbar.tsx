@@ -6,6 +6,7 @@ import {
 } from "react-router-dom";
 import { ILoginState } from "../Interfaces/Interfaces";
 import UserContext from '../../context/UserContext';
+import APIURL from '../../helpers/environment';
 
 // Navbar accepts props from App.tsx
 // Navbar also has stateful variables for email and password so the user can login
@@ -26,7 +27,7 @@ class Navbar extends Component<{}, ILoginState> {
 
   handleLogin = (e: BaseSyntheticEvent) => {
     e.preventDefault();
-    fetch(`https://gif-gallery-server.herokuapp.com/user/login`, {
+    fetch(`${APIURL}/user/login`, {
       method: "POST",
       body: JSON.stringify({
         email: this.state.email,
