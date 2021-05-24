@@ -42,11 +42,13 @@ class Homepage extends Component<{}, IState> {
         <div className="logo">
           Gif Gallery
         </div>
+        <br/><br/>
         <div className="tagline">
-          An open art gallery for internet artists
+          <h2>An open art gallery for internet artists</h2>
           <br/>
-          Powered by GIPHY and Youtube
+          <p className = "poweredBy">Powered by GIPHY and Youtube</p>
         </div>
+        <br/><br/><br/><br/>
         <div className="recent grid">
 
           {/* This maps through the recent art array and renders a container full of Preview components
