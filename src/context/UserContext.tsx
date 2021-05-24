@@ -36,7 +36,7 @@ export class UserContextProvider extends Component<
       user: {},
       token: localStorage.getItem("token"),
       isAuth: false,
-      isLoading: false,
+      isLoading: true,
     };
   }
 

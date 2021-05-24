@@ -10,7 +10,8 @@ class Homepage extends Component<{}, IState> {
     super(props);
     this.state = {
       arts: [],
-      artistName: ""
+      artistName: "",
+      reviews: []
     };
   }
 

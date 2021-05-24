@@ -2,9 +2,13 @@ import React from "react";
 import {Button} from 'reactstrap';
 
 const YoutubePreview = (props) => {
-  const { results, saveYoutube } = props;
+  const { results, saveYoutube, audio } = props;
 
-  if (results === undefined) {
+  if (audio !== "") {
+    return (
+      <div>You have chosen an audio source!</div>
+    )
+  } else if (results === undefined) {
     return <div>no results yet!</div>;
   } else {
     return (

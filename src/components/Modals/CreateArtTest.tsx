@@ -12,8 +12,9 @@ import {
 import { ICreateArt, ICreateArtProps } from "../Interfaces/Interfaces";
 import UserContext from "../../context/UserContext";
 import YoutubePreview from "./YoutubePreview";
+import GiphyPreview from './GiphyPreview';
 
-const apiKey = "AIzaSyDWx5vHuDnMtqmZTMtxcqr1K4fnSGHD_sI";
+const youtubeApiKey = "AIzaSyDWx5vHuDnMtqmZTMtxcqr1K4fnSGHD_sI";
 
 class CreateArtTest extends Component<ICreateArtProps, ICreateArt> {
   static contextType = UserContext;
@@ -47,6 +48,11 @@ class CreateArtTest extends Component<ICreateArtProps, ICreateArt> {
       gifFiveAnimation: "saturate",
       gifFiveAnimationSpeed: "",
       youtubeResults: [],
+      gifOneResults: [],
+      gifTwoResults: [],
+      gifThreeResults: [],
+      gifFourResults: [],
+      gifFiveResults: [],
     };
   }
 
@@ -56,7 +62,7 @@ class CreateArtTest extends Component<ICreateArtProps, ICreateArt> {
     });
   };
 
-  handleRegister = (e: BaseSyntheticEvent) => {
+  createArt = (e: BaseSyntheticEvent) => {
     e.preventDefault();
 
     fetch(`https://gif-gallery-server.herokuapp.com/art/create`, {
@@ -88,7 +94,7 @@ class CreateArtTest extends Component<ICreateArtProps, ICreateArt> {
     console.log("fetching youtube");
 
     fetch(
-      `https://www.googleapis.com/youtube/v3/search?part=snippet&key=${apiKey}&type=video&q=${this.state.audioSearch}`
+      `https://www.googleapis.com/youtube/v3/search?part=snippet&key=${youtubeApiKey}&type=video&q=${this.state.audioSearch}`
     )
       .then((res) => res.json())
       .then((json) => {
@@ -101,6 +107,30 @@ class CreateArtTest extends Component<ICreateArtProps, ICreateArt> {
 
   fetchGiphy = () => {
     console.log("fetching giphy");
+
+    fetch(`https://api.giphy.com/v1/gifs/search?api_key=Enmm3UZNiUyNOiajUcJ4QeIAtOhqIMWU&q=${this.state.gifOneSearch}&limit=25&offset=0&rating=g&lang=en`)
+      .then((res) => res.json())
+      .then((json) => {
+        console.log(json);
+        this.setState({
+          gifOneResults: json.data
+        })
+      })
+
+  };
+
+  fetchGiphyTwo = () => {
+    console.log("fetching giphy");
+
+    fetch(`https://api.giphy.com/v1/gifs/search?api_key=Enmm3UZNiUyNOiajUcJ4QeIAtOhqIMWU&q=${this.state.gifTwoSearch}&limit=25&offset=0&rating=g&lang=en`)
+      .then((res) => res.json())
+      .then((json) => {
+        console.log(json);
+        this.setState({
+          gifTwoResults: json.data
+        })
+      })
+
   };
 
   //FUNCTIONS FOR STORING THE CHOSEN RESULTS FROM YOUTUBE / GIPHY SEARCHES IN THE CREATE ART MODAL
@@ -108,44 +138,44 @@ class CreateArtTest extends Component<ICreateArtProps, ICreateArt> {
   saveYoutube = (e: BaseSyntheticEvent, youtubeURL: string) => {
     e.preventDefault();
     this.setState({
-      audio: `https://www.youtube.com/embed/${youtubeURL}`
-    })
-  }
+      audio: `https://www.youtube.com/embed/${youtubeURL}`,
+    });
+  };
 
   saveGifOne = (e: BaseSyntheticEvent, gifURL: string) => {
     e.preventDefault();
     this.setState({
-      gifOneURL: `${gifURL}`
-    })
-  }
+      gifOneURL: `https://media3.giphy.com/media/${gifURL}/giphy.gif`,
+    });
+  };
 
   saveGifTwo = (e: BaseSyntheticEvent, gifURL: string) => {
     e.preventDefault();
     this.setState({
-      gifTwoURL: `${gifURL}`
-    })
-  }
+      gifTwoURL: `https://media3.giphy.com/media/${gifURL}/giphy.gif`,
+    });
+  };
 
-  saveGifThree = (e: BaseSyntheticEvent, gifURL: string) => {
-    e.preventDefault();
-    this.setState({
-      gifThreeURL: `${gifURL}`
-    })
-  }
+  // saveGifThree = (e: BaseSyntheticEvent, gifURL: string) => {
+  //   e.preventDefault();
+  //   this.setState({
+  //     gifThreeURL: `${gifURL}`,
+  //   });
+  // };
 
-  saveGifFour = (e: BaseSyntheticEvent, gifURL: string) => {
-    e.preventDefault();
-    this.setState({
-      gifFourURL: `${gifURL}`
-    })
-  }
+  // saveGifFour = (e: BaseSyntheticEvent, gifURL: string) => {
+  //   e.preventDefault();
+  //   this.setState({
+  //     gifFourURL: `${gifURL}`,
+  //   });
+  // };
 
-  saveGifFive = (e: BaseSyntheticEvent, gifURL: string) => {
-    e.preventDefault();
-    this.setState({
-      gifFiveURL: `${gifURL}`
-    })
-  }
+  // saveGifFive = (e: BaseSyntheticEvent, gifURL: string) => {
+  //   e.preventDefault();
+  //   this.setState({
+  //     gifFiveURL: `${gifURL}`,
+  //   });
+  // };
 
   render() {
     return (
@@ -161,7 +191,10 @@ class CreateArtTest extends Component<ICreateArtProps, ICreateArt> {
         >
           <ModalHeader toggle={this.toggle}>Create New Art</ModalHeader>
           <ModalBody>
-            <Form onSubmit={this.handleRegister}>
+            <Form onSubmit={this.createArt}>
+
+              {/* INPUTS FOR TITLE AND AUDIO */}
+
               <FormGroup>
                 <Label htmlFor="title">title:</Label>
                 <Input
@@ -185,15 +218,17 @@ class CreateArtTest extends Component<ICreateArtProps, ICreateArt> {
                 />
                 <Button onClick={this.fetchYoutube}>Search</Button>
               </FormGroup>
+
               {/* GIF ONE INPUT FORM GROUPS  */}
+
               <FormGroup>
                 <Label htmlFor="gifOneURL">gifOneURL:</Label>
                 <Input
                   type="text"
                   id="gifOneURL"
-                  value={this.state.gifOneURL}
+                  value={this.state.gifOneSearch}
                   onChange={(e) =>
-                    this.setState({ gifOneURL: e.target.value })
+                    this.setState({ gifOneSearch: e.target.value })
                   }
                   required
                 />
@@ -230,6 +265,53 @@ class CreateArtTest extends Component<ICreateArtProps, ICreateArt> {
                   required
                 />
               </FormGroup>
+
+              {/* GIF TWO INPUT FORM GROUPS  */}
+
+              <FormGroup>
+                <Label htmlFor="gifTwoURL">gifTwoURL:</Label>
+                <Input
+                  type="text"
+                  id="gifTwoURL"
+                  value={this.state.gifTwoSearch}
+                  onChange={(e) =>
+                    this.setState({ gifTwoSearch: e.target.value })
+                  }
+                  required
+                />
+                <Button onClick={this.fetchGiphyTwo}>Search</Button>
+              </FormGroup>
+              <FormGroup>
+                <Label for="exampleSelectMulti">Select Animation Style</Label>
+                <Input
+                  type="select"
+                  name="select"
+                  id="exampleSelect"
+                  value={this.state.gifTwoAnimation}
+                  onChange={(e) =>
+                    this.setState({ gifTwoAnimation: e.target.value })
+                  }
+                  required
+                >
+                  <option>saturate</option>
+                  <option>inversion</option>
+                  <option>hueRotate</option>
+                </Input>
+              </FormGroup>
+              <FormGroup>
+                <Label htmlFor="gifTwoAnimationSpeed">
+                  gifTwoAnimationSpeed:
+                </Label>
+                <Input
+                  type="text"
+                  id="gifTwoAnimationSpeed"
+                  value={this.state.gifTwoAnimationSpeed}
+                  onChange={(e) =>
+                    this.setState({ gifTwoAnimationSpeed: e.target.value })
+                  }
+                  required
+                />
+              </FormGroup>
               <Button id="mainButton" type="submit">
                 Create Art
               </Button>{" "}
@@ -239,11 +321,24 @@ class CreateArtTest extends Component<ICreateArtProps, ICreateArt> {
             </Form>
             <div>
               <h1>This is where the Youtube results will go</h1>
-              <YoutubePreview results={this.state.youtubeResults} saveYoutube = {this.saveYoutube} />
+              <YoutubePreview
+                results={this.state.youtubeResults}
+                saveYoutube={this.saveYoutube}
+              />
             </div>
             <div>
               <h1>This is where the Giphy results will go</h1>
-              <YoutubePreview results={this.state.youtubeResults} saveYoutube = {this.saveYoutube} />
+              <GiphyPreview
+                results={this.state.gifOneResults}
+                saveGif={this.saveGifOne}
+              />
+            </div>
+            <div>
+              <h1>This is where the Second Giphy results will go</h1>
+              <GiphyPreview
+                results={this.state.gifTwoResults}
+                saveGif={this.saveGifTwo}
+              />
             </div>
           </ModalBody>
         </Modal>

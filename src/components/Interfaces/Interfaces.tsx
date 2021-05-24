@@ -6,7 +6,8 @@ export interface IArtPiece {
     images: [],
     audio: string,
     id: number,
-    userId: number
+    userId: number,
+    reviews: any[]
 }
 
 export interface IProps {
@@ -20,7 +21,8 @@ export interface ISession {
 
 export interface IState {
     arts: IArtPiece[],
-    artistName: string
+    artistName: string,
+    reviews: any[]
 }
 
 export interface IURLProps extends RouteComponentProps{
@@ -69,7 +71,12 @@ export interface ICreateArt {
     gifFiveSearch: string,
     gifFiveAnimation: string,
     gifFiveAnimationSpeed: string,
-    youtubeResults: any[]
+    youtubeResults: any[],
+    gifOneResults: any[],
+    gifTwoResults: any[],
+    gifThreeResults: any[],
+    gifFourResults: any[],
+    gifFiveResults: any[],
 }
 
 export interface ICreateArtProps {

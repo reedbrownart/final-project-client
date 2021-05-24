@@ -65,7 +65,8 @@
     }
 }
 
-.coolImg {
+
+/* .coolImg {
     height: 100%;
     width: 100%;
     position: absolute;
@@ -73,28 +74,47 @@
     left: 0;
     opacity: 80%;
     z-index: -1;
-}
+} */
 
-img {
+
+/* img {
+    height: 150px;
+    width: 150px;
+} */
+
+.previewImage {
     height: 150px;
     width: 150px;
 }
 
 .artImg {
-    height: 100%;
-    width: 100%;
     position: absolute;
+    height: 480px;
+    width: 480px;
     top: 0;
     left: 0;
     opacity: 80%;
     z-index: -1;
+    padding: 10px;
 }
 
+.artFrame {
+    border: 10px black solid;
+    position: relative;
+    height: 500px;
+    width: 500px;
+    order: 1;
+}
 
-/* .artFrame {
-    height: 80%;
-    width: 80%;
-} */
+.artWall {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.reviews {
+    order: 2
+}
 
 div {
     border: 3px black solid;

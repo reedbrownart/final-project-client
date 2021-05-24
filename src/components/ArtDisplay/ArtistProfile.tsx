@@ -9,6 +9,7 @@ class Artist extends Component<IURLProps, IState> {
     this.state = {
       arts: [],
       artistName: "",
+      reviews: []
     };
   }
 

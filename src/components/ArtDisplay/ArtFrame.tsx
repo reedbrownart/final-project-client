@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import ArtPiece from './ArtPiece';
 import { IArtPiece, IURLProps } from '../Interfaces/Interfaces';
+import { Container, Row, Col, Button } from "reactstrap";
+import Review from './Review';
 
 
 class ArtFrame extends Component<IURLProps, IArtPiece> {
@@ -12,11 +14,12 @@ class ArtFrame extends Component<IURLProps, IArtPiece> {
             images: [],
             audio: "",
             id: 0,
-            userId: 0
+            userId: 0,
+            reviews: []
         }
     }
 
-    fetchData = () => {
+    fetchArt = () => {
         const query = new URLSearchParams(this.props.location.search);
         console.log(query.get('art'));
 
@@ -47,18 +50,56 @@ class ArtFrame extends Component<IURLProps, IArtPiece> {
             })
     }
 
+    fetchReviews = () => {
+        const query = new URLSearchParams(this.props.location.search);
+        console.log(query.get("art"));
+    
+        const artID = Number(query.get("art"));
+
+        fetch(`${process.env.REACT_APP_GIF_GALLERY_SERVER}/reviews/tenreviews/${artID}`)
+            .then((res) => {
+                console.log('reviews are being fetched');
+                return res.json();
+            })
+            .then((json) => {
+                console.log(`this is the review data:`);
+                console.log(json)
+                this.setState({
+                    reviews: json.reviews
+                })
+            })
+            .catch((err) => {
+                console.log(err)
+            })
+    }
+
     componentDidMount() {
-        this.fetchData();
+        this.fetchArt();
+        this.fetchReviews();
     }
 
     render() {
         return (
-            <div className = "artFrame">
+            <div className = "artWall">
                 <ArtPiece
                     title = {this.state.title}
                     artArray = {this.state.images}
                     audioLink = {this.state.audio}
                 />
+                <Container>
+                    <Row>
+                        <Button>Post Review</Button>
+                    </Row>
+                    <Row>
+                        {this.state.reviews.map((review) => {
+                            return (
+                                <Col>
+                                    <Review rating = {review.rating} description = {review.description} />
+                                </Col>
+                            )
+                        })}
+                    </Row>
+                </Container>
             </div>
         )
     }
