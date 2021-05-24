@@ -9,21 +9,19 @@ import {
   Input,
   Label,
 } from "reactstrap";
-import { IModal, IModalProps } from "../Interfaces/Interfaces";
+import { IPostReviewState, IReviewModalProps } from "../Interfaces/Interfaces";
 import UserContext from '../../context/UserContext';
 
-class Register extends Component<IModalProps, IModal> {
+class PostReview extends Component<IReviewModalProps, IPostReviewState> {
   static contextType = UserContext;
   context!: React.ContextType<typeof UserContext>
   
-  constructor(props: IModalProps) {
+  constructor(props: IReviewModalProps) {
     super(props);
     this.state = {
       modal: false,
-      email: "",
-      firstName: "",
-      lastName: "",
-      password: ""
+      rating: "",
+      description: ""
     };
   }
 
@@ -33,27 +31,28 @@ class Register extends Component<IModalProps, IModal> {
     });
   };
 
-  handleRegister = (e: BaseSyntheticEvent) => {
+  postReview = (e: BaseSyntheticEvent) => {
     e.preventDefault();
-    fetch(`https://gif-gallery-server.herokuapp.com/user/register`, {
-      method: 'POST',
+
+    fetch(`https://gif-gallery-server.herokuapp.com/reviews/create/${this.props.artID}`, {
+      method: "POST",
       body: JSON.stringify({
-        email: this.state.email,
-        firstName: this.state.firstName,
-        lastName: this.state.lastName,
-        password: this.state.password
+        rating: this.state.rating,
+        description: this.state.description
       }),
       headers: new Headers({
-        'Content-Type': 'application/json',
-      })
+        "Content-Type": "application/json",
+
+        //THIS IS WHERE THE CONTEXT USER TOKEN WILL GET INSERTED
+
+        Authorization: `${this.context.token}`,
+      }),
     })
       .then((res) => res.json())
-      .then((data) => {
-        this.context.setToken(data.token);
-      })
-
+      .then((data) => {})
+      .catch((err) => console.log(err));
     this.toggle();
-  }
+  };
 
   render() {
     return (
@@ -66,50 +65,29 @@ class Register extends Component<IModalProps, IModal> {
           toggle={this.toggle}
           className={this.props.className}
         >
-          <ModalHeader toggle={this.toggle}>Register a New User</ModalHeader>
+          <ModalHeader toggle={this.toggle}>Post a New Review</ModalHeader>
           <ModalBody>
-            <Form onSubmit={this.handleRegister}>
+            <Form onSubmit={this.postReview}>
               <FormGroup>
-                <Label htmlFor="email">Email:</Label>
+                <Label htmlFor="email">Rating:</Label>
                 <Input
                   type="text"
-                  id="email"
-                  value={this.state.email}
-                  onChange={(e) => this.setState({email: e.target.value})}
+                  id="rating"
+                  value={this.state.rating}
+                  onChange={(e) => this.setState({rating: e.target.value})}
                 />
               </FormGroup>
               <FormGroup>
-                <Label htmlFor="firstName">First Name:</Label>
-                <br />
+                <Label htmlFor="email">Description:</Label>
                 <Input
                   type="text"
-                  id="firstName"
-                  value={this.state.firstName}
-                  onChange={(e) => this.setState({firstName: e.target.value})}
-                />
-              </FormGroup>
-              <FormGroup>
-                <Label htmlFor="lastName">Last Name:</Label>
-                <br />
-                <Input
-                  type="text"
-                  id="lastName"
-                  value={this.state.lastName}
-                  onChange={(e) => this.setState({lastName: e.target.value})}
-                />
-              </FormGroup>
-              <FormGroup>
-                <Label htmlFor="password">Password:</Label>
-                <br />
-                <Input
-                  type="password"
-                  id="password"
-                  value={this.state.password}
-                  onChange={(e) => this.setState({password: e.target.value})}
+                  id="description"
+                  value={this.state.description}
+                  onChange={(e) => this.setState({description: e.target.value})}
                 />
               </FormGroup>
               <Button id="mainButton" type="submit">
-                Signup
+                Post Review
               </Button>{" "}
               <Button id="importantButton" onClick={this.toggle}>
                 Cancel
@@ -122,4 +100,4 @@ class Register extends Component<IModalProps, IModal> {
   }
 }
 
-export default Register;
+export default PostReview;

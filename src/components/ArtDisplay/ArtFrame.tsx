@@ -3,7 +3,7 @@ import ArtPiece from './ArtPiece';
 import { IArtPiece, IURLProps } from '../Interfaces/Interfaces';
 import { Container, Row, Col, Button } from "reactstrap";
 import Review from './Review';
-
+import PostReview from '../Modals/PostReview'
 
 class ArtFrame extends Component<IURLProps, IArtPiece> {
     constructor(props: IURLProps) {
@@ -79,6 +79,11 @@ class ArtFrame extends Component<IURLProps, IArtPiece> {
     }
 
     render() {
+        const query = new URLSearchParams(this.props.location.search);
+        console.log(query.get('art'));
+
+        const artID = Number(query.get('art'))
+
         return (
             <div className = "artWall">
                 <ArtPiece
@@ -88,7 +93,7 @@ class ArtFrame extends Component<IURLProps, IArtPiece> {
                 />
                 <Container>
                     <Row>
-                        <Button>Post Review</Button>
+                        <PostReview buttonLabel = "Post Review" className = "postReview" artID = {artID}/>
                     </Row>
                     <Row>
                         {this.state.reviews.map((review) => {

@@ -302,7 +302,7 @@ class CreateArt extends Component<ICreateArtProps, ICreateArt> {
                   id="gifOneAnimationSpeed"
                   value={this.state.gifOneAnimationSpeed}
                   onChange={(e) =>
-                    this.setState({ gifOneAnimationSpeed: e.target.value })
+                    this.setState({ gifOneAnimationSpeed: `${e.target.value}s` })
                   }
                   required
                 />
@@ -354,7 +354,7 @@ class CreateArt extends Component<ICreateArtProps, ICreateArt> {
                   id="gifTwoAnimationSpeed"
                   value={this.state.gifTwoAnimationSpeed}
                   onChange={(e) =>
-                    this.setState({ gifTwoAnimationSpeed: e.target.value })
+                    this.setState({ gifTwoAnimationSpeed: `${e.target.value}s` })
                   }
                   required
                 />

@@ -44,6 +44,12 @@ export interface IModalProps {
     className: string
 }
 
+export interface IReviewModalProps {
+    buttonLabel: string,
+    className: string,
+    artID: number
+}
+
 // INTERFACES FOR CREATE ART MODAL
 
 export interface ICreateArt {
@@ -114,4 +120,10 @@ export interface IUser {
     email?: string,
     password?: string,
     isAdmin?: boolean
+}
+
+export interface IPostReviewState {
+    modal: boolean,
+    rating: string,
+    description: string
 }

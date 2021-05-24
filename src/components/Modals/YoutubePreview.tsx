@@ -4,12 +4,14 @@ import {Button} from 'reactstrap';
 const YoutubePreview = (props) => {
   const { results, saveYoutube, audio } = props;
 
+  console.log(results);
+
   if (audio !== "") {
     return (
       <div>You have chosen an audio source!</div>
     )
-  } else if (results === undefined) {
-    return <div>no results yet!</div>;
+  } else if (results.length === 0) {
+    return (<div>You have not chosen an audio source yet</div>)
   } else {
     return (
       <div>
@@ -19,6 +21,7 @@ const YoutubePreview = (props) => {
               <a
                 href={`https://www.youtube.com/watch?v=${video.id.videoId}`}
                 target="_blank"
+                rel="noreferrer"
               >
                 <p>{video.snippet.title}</p>
               </a>

@@ -8,8 +8,8 @@ const GiphyPreview = (props) => {
     return(
       <div>You have chosen a gif!</div>
     )
-  } else if (results === undefined) {
-    return <div>no results yet!</div>;
+  } else if (results.length === 0) {
+    return <div>You have not chosen a gif yet</div>;
   } else  {
     return (
       <div>
@@ -17,7 +17,7 @@ const GiphyPreview = (props) => {
           return (
             <div>
               <p>{}</p>
-              <img src={`https://media3.giphy.com/media/${gif.id}/giphy.gif`} alt="" />
+              <img className = "gifPreview" src={`https://media3.giphy.com/media/${gif.id}/giphy.gif`} alt="" />
               <Button
                 onClick={(e) => {
                   saveGif(e, gif.id);

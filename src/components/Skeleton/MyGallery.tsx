@@ -3,7 +3,7 @@ import { Container, Row, Col, Button } from "reactstrap";
 import { IState, IURLProps } from "../Interfaces/Interfaces";
 import CreateArt from "../Modals/CreateArt";
 // import CreateArtTest from "../Modals/CreateArtTest";
-import Review from '../ArtDisplay/Review';
+//import Review from '../ArtDisplay/Review';
 import UpdateArt from "../Modals/UpdateArt";
 import Preview from "../ArtDisplay/Preview";
 import UserContext from "../../context/UserContext";
@@ -71,7 +71,7 @@ class MyGallery extends Component<IURLProps, IState> {
   }
 
   componentDidUpdate() {
-    this.fetchArtGallery();
+    // this.fetchArtGallery();
   }
 
   render() {
@@ -84,10 +84,8 @@ class MyGallery extends Component<IURLProps, IState> {
         {/* <Button>Update Artist Profile</Button>
         <Button>View Artist Profile</Button> */}
         <CreateArt buttonLabel="Create New Art" className="createArt" />
+        <hr/>
         <Container>
-          <Row>
-            <h1>This are my arts!</h1>
-          </Row>
           <Row>
             {this.state.arts.map((art) => {
               return (

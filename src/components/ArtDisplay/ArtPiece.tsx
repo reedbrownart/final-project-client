@@ -35,7 +35,7 @@ const ArtPiece = (props) => {
             );
           })}
         </div>
-        <a href = {`https://www.youtube.com/watch?v=${audioLink}`} target = "_blank">Original Audio</a>
+        <a href = {`https://www.youtube.com/watch?v=${audioLink}`} target = "_blank" rel="noreferrer">Original Audio</a>
         <iframe
           width="0"
           height="0"

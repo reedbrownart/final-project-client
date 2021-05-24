@@ -185,6 +185,7 @@ class UpdateArt extends Component<IUpdateArtProps, ICreateArt> {
           isOpen={this.state.modal}
           toggle={this.toggle}
           className={this.props.className}
+          size = "lg"
         >
           <ModalHeader toggle={this.toggle}>Update your Art!</ModalHeader>
           <ModalBody>
@@ -217,12 +218,12 @@ class UpdateArt extends Component<IUpdateArtProps, ICreateArt> {
                 <Button onClick={this.fetchYoutube}>Search</Button>
               </FormGroup>
               <div>
-              <YoutubePreview
-                results={this.state.youtubeResults}
-                saveYoutube={this.saveYoutube}
-                audio={this.state.audio}
-              />
-            </div>
+                <YoutubePreview
+                  results={this.state.youtubeResults}
+                  saveYoutube={this.saveYoutube}
+                  audio={this.state.audio}
+                />
+              </div>
 
               {/* GIF ONE INPUT FORM GROUPS  */}
 
@@ -247,27 +248,34 @@ class UpdateArt extends Component<IUpdateArtProps, ICreateArt> {
                 />
               </div>
               <FormGroup>
-                <Label htmlFor="gifOneAnimation">gifOneAnimation:</Label>
+                <Label for="exampleSelectMulti">Select Animation Style</Label>
                 <Input
-                  type="text"
-                  id="gifOneAnimation"
+                  type="select"
+                  name="select"
+                  id="exampleSelect"
                   value={this.state.gifOneAnimation}
                   onChange={(e) =>
                     this.setState({ gifOneAnimation: e.target.value })
                   }
                   required
-                />
+                >
+                  <option>saturate</option>
+                  <option>inversion</option>
+                  <option>hueRotate</option>
+                </Input>
               </FormGroup>
               <FormGroup>
                 <Label htmlFor="gifOneAnimationSpeed">
-                  gifOneAnimationSpeed:
+                  Animation Speed in Seconds:
                 </Label>
                 <Input
                   type="text"
                   id="gifOneAnimationSpeed"
                   value={this.state.gifOneAnimationSpeed}
                   onChange={(e) =>
-                    this.setState({ gifOneAnimationSpeed: e.target.value })
+                    this.setState({
+                      gifOneAnimationSpeed: `${e.target.value}s`,
+                    })
                   }
                   required
                 />
@@ -296,27 +304,34 @@ class UpdateArt extends Component<IUpdateArtProps, ICreateArt> {
                 />
               </div>
               <FormGroup>
-                <Label htmlFor="gifTwoAnimation">gifTwoAnimation:</Label>
+                <Label for="exampleSelectMulti">Select Animation Style</Label>
                 <Input
-                  type="text"
-                  id="gifTwoAnimation"
+                  type="select"
+                  name="select"
+                  id="exampleSelect"
                   value={this.state.gifTwoAnimation}
                   onChange={(e) =>
                     this.setState({ gifTwoAnimation: e.target.value })
                   }
                   required
-                />
+                >
+                  <option>saturate</option>
+                  <option>inversion</option>
+                  <option>hueRotate</option>
+                </Input>
               </FormGroup>
               <FormGroup>
                 <Label htmlFor="gifTwoAnimationSpeed">
-                  gifTwoAnimationSpeed:
+                  Animation Speed in Seconds:
                 </Label>
                 <Input
                   type="text"
                   id="gifTwoAnimationSpeed"
                   value={this.state.gifTwoAnimationSpeed}
                   onChange={(e) =>
-                    this.setState({ gifTwoAnimationSpeed: e.target.value })
+                    this.setState({
+                      gifTwoAnimationSpeed: `${e.target.value}s`,
+                    })
                   }
                   required
                 />
@@ -324,14 +339,18 @@ class UpdateArt extends Component<IUpdateArtProps, ICreateArt> {
               <Button id="mainButton" type="submit">
                 Update Art
               </Button>
+              <Button onClick={this.deleteArt}>Delete Art</Button>
+              <Button id="importantButton" onClick={this.toggle}>
+                Cancel
+              </Button>
             </Form>
           </ModalBody>
-          <ModalFooter>
+          {/* <ModalFooter>
             <Button onClick={this.deleteArt}>Delete Art</Button>
             <Button id="importantButton" onClick={this.toggle}>
               Cancel
             </Button>
-          </ModalFooter>
+          </ModalFooter> */}
         </Modal>
       </div>
     );

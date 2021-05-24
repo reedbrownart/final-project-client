@@ -87,6 +87,11 @@
     width: 150px;
 }
 
+.gifPreview {
+    height: 200px;
+    width: 200px;
+}
+
 .artImg {
     position: absolute;
     height: 480px;
