@@ -26,9 +26,7 @@ const ArtPiece = (props) => {
                 style={{
                   animation: `${artArray[1][index]} ${
                     artArray[2][index]
-                  }, fading ${getRandomInt(19)}s`,
-                  animationIterationCount: "infinite",
-                  animationDirection: "alternate",
+                  } infinite alternate, fading ${getRandomInt(19)}s infinite alternate`
                 }}
                 alt=""
               />
