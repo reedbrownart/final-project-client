@@ -4,21 +4,22 @@ import {
   Modal,
   ModalHeader,
   ModalBody,
+  ModalFooter,
   Form,
   FormGroup,
   Input,
   Label,
 } from "reactstrap";
-import { ICreateArt, ICreateArtProps } from "../Interfaces/Interfaces";
+import { ICreateArt, IUpdateArtProps } from "../Interfaces/Interfaces";
 import UserContext from "../../context/UserContext";
 import YoutubePreview from "./YoutubePreview";
 import GiphyPreview from "./GiphyPreview";
 
-class CreateArt extends Component<ICreateArtProps, ICreateArt> {
+class UpdateArt extends Component<IUpdateArtProps, ICreateArt> {
   static contextType = UserContext;
   context!: React.ContextType<typeof UserContext>;
 
-  constructor(props: ICreateArtProps) {
+  constructor(props: IUpdateArtProps) {
     super(props);
     this.state = {
       modal: false,
@@ -27,23 +28,23 @@ class CreateArt extends Component<ICreateArtProps, ICreateArt> {
       audioSearch: "",
       gifOneURL: "",
       gifOneSearch: "",
-      gifOneAnimation: "saturate",
+      gifOneAnimation: "",
       gifOneAnimationSpeed: "",
       gifTwoURL: "",
       gifTwoSearch: "",
-      gifTwoAnimation: "saturate",
+      gifTwoAnimation: "",
       gifTwoAnimationSpeed: "",
       gifThreeURL: "",
       gifThreeSearch: "",
-      gifThreeAnimation: "saturate",
+      gifThreeAnimation: "",
       gifThreeAnimationSpeed: "",
       gifFourURL: "",
       gifFourSearch: "",
-      gifFourAnimation: "saturate",
+      gifFourAnimation: "",
       gifFourAnimationSpeed: "",
       gifFiveURL: "",
       gifFiveSearch: "",
-      gifFiveAnimation: "saturate",
+      gifFiveAnimation: "",
       gifFiveAnimationSpeed: "",
       youtubeResults: [],
       gifOneResults: [],
@@ -57,62 +58,50 @@ class CreateArt extends Component<ICreateArtProps, ICreateArt> {
   toggle = () => {
     this.setState({
       modal: !this.state.modal,
-      title: "",
-      audio: "",
-      audioSearch: "",
-      gifOneURL: "",
-      gifOneSearch: "",
-      gifOneAnimation: "saturate",
-      gifOneAnimationSpeed: "",
-      gifTwoURL: "",
-      gifTwoSearch: "",
-      gifTwoAnimation: "saturate",
-      gifTwoAnimationSpeed: "",
-      gifThreeURL: "",
-      gifThreeSearch: "",
-      gifThreeAnimation: "saturate",
-      gifThreeAnimationSpeed: "",
-      gifFourURL: "",
-      gifFourSearch: "",
-      gifFourAnimation: "saturate",
-      gifFourAnimationSpeed: "",
-      gifFiveURL: "",
-      gifFiveSearch: "",
-      gifFiveAnimation: "saturate",
-      gifFiveAnimationSpeed: "",
-      youtubeResults: [],
-      gifOneResults: [],
-      gifTwoResults: [],
-      gifThreeResults: [],
-      gifFourResults: [],
-      gifFiveResults: [],
     });
   };
 
-  createArt = (e: BaseSyntheticEvent) => {
+  deleteArt = () => {
+    fetch(
+      `https://gif-gallery-server.herokuapp.com/art/delete/${this.props.artID}`,
+      {
+        method: "DELETE",
+        headers: new Headers({
+          "Content-Type": "application/json",
+          "Authorization": `${this.context.token}`,
+        }),
+      }
+    );
+
+    this.toggle();
+  };
+
+  updateArt = (e: BaseSyntheticEvent) => {
     e.preventDefault();
 
-    fetch(`https://gif-gallery-server.herokuapp.com/art/create`, {
-      method: "POST",
-      body: JSON.stringify({
-        title: this.state.title,
-        images: [
-          [this.state.gifOneURL, this.state.gifTwoURL],
-          [this.state.gifOneAnimation, this.state.gifTwoAnimation],
-          [this.state.gifOneAnimationSpeed, this.state.gifTwoAnimationSpeed],
-        ],
-        audio: this.state.audio,
-      }),
-      headers: new Headers({
-        "Content-Type": "application/json",
+    console.log("updating art!");
 
-        //THIS IS WHERE THE CONTEXT USER TOKEN WILL GET INSERTED
-
-        "Authorization": `${this.context.token}`,
-      }),
-    })
+    fetch(
+      `https://gif-gallery-server.herokuapp.com/art/update/${this.props.artID}`,
+      {
+        method: "PUT",
+        body: JSON.stringify({
+          title: this.state.title,
+          images: [
+            [this.state.gifOneURL, this.state.gifTwoURL],
+            [this.state.gifOneAnimation, this.state.gifTwoAnimation],
+            [this.state.gifOneAnimationSpeed, this.state.gifTwoAnimationSpeed],
+          ],
+          audio: this.state.audio,
+        }),
+        headers: new Headers({
+          "Content-Type": "application/json",
+          "Authorization": `${this.context.token}`,
+        }),
+      }
+    )
       .then((res) => res.json())
-      .then((data) => { })
+      .then((data) => {})
       .catch((err) => console.log(err));
     this.toggle();
   };
@@ -165,8 +154,6 @@ class CreateArt extends Component<ICreateArtProps, ICreateArt> {
       });
   };
 
-  //FUNCTIONS FOR STORING THE CHOSEN RESULTS FROM YOUTUBE / GIPHY SEARCHES IN THE CREATE ART MODAL
-
   saveYoutube = (e: BaseSyntheticEvent, youtubeURL: string) => {
     e.preventDefault();
     this.setState({
@@ -188,27 +175,6 @@ class CreateArt extends Component<ICreateArtProps, ICreateArt> {
     });
   };
 
-  // saveGifThree = (e: BaseSyntheticEvent, gifURL: string) => {
-  //   e.preventDefault();
-  //   this.setState({
-  //     gifThreeURL: `${gifURL}`,
-  //   });
-  // };
-
-  // saveGifFour = (e: BaseSyntheticEvent, gifURL: string) => {
-  //   e.preventDefault();
-  //   this.setState({
-  //     gifFourURL: `${gifURL}`,
-  //   });
-  // };
-
-  // saveGifFive = (e: BaseSyntheticEvent, gifURL: string) => {
-  //   e.preventDefault();
-  //   this.setState({
-  //     gifFiveURL: `${gifURL}`,
-  //   });
-  // };
-
   render() {
     return (
       <div>
@@ -219,14 +185,17 @@ class CreateArt extends Component<ICreateArtProps, ICreateArt> {
           isOpen={this.state.modal}
           toggle={this.toggle}
           className={this.props.className}
-          size="lg"
+          size = "lg"
         >
-          <ModalHeader toggle={this.toggle}>Create New Art</ModalHeader>
+          <ModalHeader toggle={this.toggle}>Update your Art!</ModalHeader>
           <ModalBody>
-            <Form onSubmit={this.createArt}>
-              {/* INPUTS FOR TITLE AND AUDIO */}
+            <Form
+              onSubmit={(e) => {
+                this.updateArt(e);
+              }}
+            >
               <FormGroup>
-                <Label htmlFor="title">title:</Label>
+                <Label htmlFor="title">Title:</Label>
                 <Input
                   type="text"
                   id="title"
@@ -255,7 +224,9 @@ class CreateArt extends Component<ICreateArtProps, ICreateArt> {
                   audio={this.state.audio}
                 />
               </div>
+
               {/* GIF ONE INPUT FORM GROUPS  */}
+
               <FormGroup>
                 <Label htmlFor="gifOneURL">gifOneURL:</Label>
                 <Input
@@ -277,7 +248,7 @@ class CreateArt extends Component<ICreateArtProps, ICreateArt> {
                 />
               </div>
               <FormGroup>
-                <Label for="exampleSelectMulti">Select Animation Styles</Label>
+                <Label for="exampleSelectMulti">Select Animation Style</Label>
                 <Input
                   type="select"
                   name="select"
@@ -295,19 +266,23 @@ class CreateArt extends Component<ICreateArtProps, ICreateArt> {
               </FormGroup>
               <FormGroup>
                 <Label htmlFor="gifOneAnimationSpeed">
-                  gifOneAnimationSpeed:
+                  Animation Speed in Seconds:
                 </Label>
                 <Input
                   type="text"
                   id="gifOneAnimationSpeed"
                   value={this.state.gifOneAnimationSpeed}
                   onChange={(e) =>
-                    this.setState({ gifOneAnimationSpeed: `${e.target.value}s` })
+                    this.setState({
+                      gifOneAnimationSpeed: `${e.target.value}s`,
+                    })
                   }
                   required
                 />
               </FormGroup>
-              {/* GIF TWO INPUT FORM GROUPS  */}
+
+              {/* GIF TWO INPUT FORM GROUPS */}
+
               <FormGroup>
                 <Label htmlFor="gifTwoURL">gifTwoURL:</Label>
                 <Input
@@ -347,30 +322,39 @@ class CreateArt extends Component<ICreateArtProps, ICreateArt> {
               </FormGroup>
               <FormGroup>
                 <Label htmlFor="gifTwoAnimationSpeed">
-                  gifTwoAnimationSpeed:
+                  Animation Speed in Seconds:
                 </Label>
                 <Input
                   type="text"
                   id="gifTwoAnimationSpeed"
                   value={this.state.gifTwoAnimationSpeed}
                   onChange={(e) =>
-                    this.setState({ gifTwoAnimationSpeed: `${e.target.value}s` })
+                    this.setState({
+                      gifTwoAnimationSpeed: `${e.target.value}s`,
+                    })
                   }
                   required
                 />
               </FormGroup>
               <Button id="mainButton" type="submit">
-                Create Art
-              </Button>{" "}
+                Update Art
+              </Button>
+              <Button onClick={this.deleteArt}>Delete Art</Button>
               <Button id="importantButton" onClick={this.toggle}>
                 Cancel
               </Button>
             </Form>
           </ModalBody>
+          {/* <ModalFooter>
+            <Button onClick={this.deleteArt}>Delete Art</Button>
+            <Button id="importantButton" onClick={this.toggle}>
+              Cancel
+            </Button>
+          </ModalFooter> */}
         </Modal>
       </div>
     );
   }
 }
 
-export default CreateArt;
+export default UpdateArt;
