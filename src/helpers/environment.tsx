@@ -5,7 +5,7 @@ switch (window.location.hostname) {
         APIURL = 'http://localhost:3030';
         break;
     case 'final-project-client.herokuapp.com' :
-        APIURL = 'https://final-project-client.herokuapp.com'
+        APIURL = 'https://gif-gallery-server.herokuapp.com'
 }
 
 export default APIURL;
