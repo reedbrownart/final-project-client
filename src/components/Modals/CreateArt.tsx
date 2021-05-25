@@ -24,6 +24,7 @@ class CreateArt extends Component<ICreateArtProps, ICreateArt> {
     this.state = {
       modal: false,
       title: "",
+      artistName: "",
       audio: "",
       audioSearch: "",
       gifOneURL: "",
@@ -97,10 +98,11 @@ class CreateArt extends Component<ICreateArtProps, ICreateArt> {
       method: "POST",
       body: JSON.stringify({
         title: this.state.title,
+        artistName: `${this.context.user.firstName} ${this.context.user.lastName}`,
         images: [
           [this.state.gifOneURL, this.state.gifTwoURL],
           [this.state.gifOneAnimation, this.state.gifTwoAnimation],
-          [this.state.gifOneAnimationSpeed, this.state.gifTwoAnimationSpeed],
+          [`${this.state.gifOneAnimationSpeed}s`, `${this.state.gifTwoAnimationSpeed}s`],
         ],
         audio: this.state.audio,
       }),
@@ -303,7 +305,7 @@ class CreateArt extends Component<ICreateArtProps, ICreateArt> {
                   id="gifOneAnimationSpeed"
                   value={this.state.gifOneAnimationSpeed}
                   onChange={(e) =>
-                    this.setState({ gifOneAnimationSpeed: `${e.target.value}s` })
+                    this.setState({ gifOneAnimationSpeed: e.target.value })
                   }
                   required
                 />
@@ -355,7 +357,7 @@ class CreateArt extends Component<ICreateArtProps, ICreateArt> {
                   id="gifTwoAnimationSpeed"
                   value={this.state.gifTwoAnimationSpeed}
                   onChange={(e) =>
-                    this.setState({ gifTwoAnimationSpeed: `${e.target.value}s` })
+                    this.setState({ gifTwoAnimationSpeed: e.target.value })
                   }
                   required
                 />

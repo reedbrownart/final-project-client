@@ -91,7 +91,7 @@ class UpdateArt extends Component<IUpdateArtProps, ICreateArt> {
           images: [
             [this.state.gifOneURL, this.state.gifTwoURL],
             [this.state.gifOneAnimation, this.state.gifTwoAnimation],
-            [this.state.gifOneAnimationSpeed, this.state.gifTwoAnimationSpeed],
+            [`${this.state.gifOneAnimationSpeed}s`, `${this.state.gifTwoAnimationSpeed}s`],
           ],
           audio: this.state.audio,
         }),
@@ -275,7 +275,7 @@ class UpdateArt extends Component<IUpdateArtProps, ICreateArt> {
                   value={this.state.gifOneAnimationSpeed}
                   onChange={(e) =>
                     this.setState({
-                      gifOneAnimationSpeed: `${e.target.value}s`,
+                      gifOneAnimationSpeed: e.target.value
                     })
                   }
                   required
@@ -331,7 +331,7 @@ class UpdateArt extends Component<IUpdateArtProps, ICreateArt> {
                   value={this.state.gifTwoAnimationSpeed}
                   onChange={(e) =>
                     this.setState({
-                      gifTwoAnimationSpeed: `${e.target.value}s`,
+                      gifTwoAnimationSpeed: e.target.value
                     })
                   }
                   required

@@ -90,15 +90,15 @@ class MyGallery extends Component<IURLProps, IState> {
           <Row>
             {this.state.arts.map((art) => {
               return (
-                <Col>
+                <Col className = "galleryCol">
                   <Preview
                     title={art.title}
-                    thumbnail="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Mona_Lisa%2C_by_Leonardo_da_Vinci%2C_from_C2RMF_retouched.jpg/1200px-Mona_Lisa%2C_by_Leonardo_da_Vinci%2C_from_C2RMF_retouched.jpg"
+                    thumbnail={art.images[0][0]}
                     artLink={`/art?art=${art.id}`}
                     artistLink={`/artist?artist=${art.userId}`}
                   />
                   <UpdateArt buttonLabel = "update" className = "updateArt" artID = {art.id}/>
-                  <Button>Get Link</Button>
+                  {/* <Button>Get Link</Button> */}
                 </Col>
               );
             })}
