@@ -24,7 +24,6 @@ class CreateArt extends Component<ICreateArtProps, ICreateArt> {
     this.state = {
       modal: false,
       title: "",
-      artistName: "",
       audio: "",
       audioSearch: "",
       gifOneURL: "",

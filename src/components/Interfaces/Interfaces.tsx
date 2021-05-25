@@ -55,7 +55,6 @@ export interface IReviewModalProps {
 export interface ICreateArt {
     modal: boolean,
     title: string,
-    artistName: string,
     audio: string,
     audioSearch: string,
     gifOneURL: string,
