@@ -4,9 +4,9 @@ const Preview = (props) => {
   const { title, artist, thumbnail, artLink, artistLink} = props;
   return (
     <div className = "artPreview">
-      <h3><a href = {artLink}>{title}</a></h3>
-      <h6><a href = {artistLink}>{artist}</a></h6>
-      <a href = {artLink}><img className = "previewImage" src = {thumbnail} alt = ""/></a>
+      <a className = "artLink" href = {artLink}>{title}</a>
+      <a className = "artistLink" href = {artistLink}>{artist}</a>
+      <a href = {artLink}><img className = "previewImage" src = {thumbnail} alt = "sorry image is broken"/></a>
     </div>
   );
 }

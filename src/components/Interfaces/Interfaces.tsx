@@ -3,7 +3,7 @@ import { RouteComponentProps } from 'react-router-dom';
 export interface IArtPiece {
     title: string,
     artistName: string,
-    images: [],
+    images: any[],
     audio: string,
     id: number,
     userId: number,
@@ -55,6 +55,7 @@ export interface IReviewModalProps {
 export interface ICreateArt {
     modal: boolean,
     title: string,
+    artistName: string,
     audio: string,
     audioSearch: string,
     gifOneURL: string,
