@@ -26,7 +26,8 @@ export interface IState {
 }
 
 export interface IURLProps extends RouteComponentProps{
-    token: string
+    token: string,
+    fetchArtGallery: any
 }
 
 //INTERFACES FOR REGISTER MODAL
@@ -36,7 +37,8 @@ export interface IModal {
     email: string,
     firstName: string,
     lastName: string,
-    password: string
+    password: string,
+    userID?: number
 }
 
 export interface IModalProps {

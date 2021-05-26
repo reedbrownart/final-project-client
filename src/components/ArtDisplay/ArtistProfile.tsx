@@ -55,14 +55,14 @@ class Artist extends Component<IURLProps, IState> {
   render() {
     return (
       <div>
-        <h1>This is {this.state.artistName}'s Gallery</h1>
-        <p>
+        <div className = "galleryBanner">{this.state.artistName}'s Gallery</div>
+        {/* <p>
           Maybe an artist's bio will eventually go here. Lorem ipsum dolor sit
           amet consectetur adipisicing elit. Ratione repellat dolores totam
           beatae ipsa? Eligendi voluptatibus, dolor reprehenderit excepturi
           itaque iste, veritatis commodi exercitationem officia maxime magni,
           deleniti minima ipsa.
-        </p>
+        </p> */}
         <Container>
           <Row>
             {this.state.arts.map((art) => {
@@ -70,7 +70,7 @@ class Artist extends Component<IURLProps, IState> {
                 <Col>
                   <Preview
                     title={art.title}
-                    thumbnail="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Mona_Lisa%2C_by_Leonardo_da_Vinci%2C_from_C2RMF_retouched.jpg/1200px-Mona_Lisa%2C_by_Leonardo_da_Vinci%2C_from_C2RMF_retouched.jpg"
+                    thumbnail={art.images[0][0]}
                     artLink={`/art?art=${art.id}`}
                     artistLink={`/artist?artist=${art.userId}`}
                   />

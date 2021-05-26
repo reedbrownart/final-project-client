@@ -6,7 +6,7 @@ const Preview = (props) => {
     <div className = "artPreview">
       <a className = "artLink" href = {artLink}>{title}</a>
       <a className = "artistLink" href = {artistLink}>{artist}</a>
-      <a href = {artLink}><img className = "previewImage" src = {thumbnail} alt = "sorry image is broken"/></a>
+      <a href = {artLink}><img className = "previewImage" src = {thumbnail} alt = "sorry broken"/></a>
     </div>
   );
 }

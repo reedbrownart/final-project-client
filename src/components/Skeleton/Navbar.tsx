@@ -1,5 +1,5 @@
 import React, { BaseSyntheticEvent, Component } from "react";
-import { Button, Form, Input, FormGroup, Label, InputGroup, InputGroupAddon, InputGroupText } from "reactstrap";
+import { Button, Form, Input, FormGroup } from "reactstrap";
 import Register from "../Modals/Register";
 import {
   Link,
@@ -26,6 +26,7 @@ class Navbar extends Component<{}, ILoginState> {
   // This function performs a login post using the email and password stateful variables
 
   handleLogin = (e: BaseSyntheticEvent) => {
+    console.log('handle log in is running!')
     e.preventDefault();
     fetch(`${APIURL}/user/login`, {
       method: "POST",
@@ -41,11 +42,7 @@ class Navbar extends Component<{}, ILoginState> {
       .then((data) => {
         console.log(data);
         //this.props.updateToken(data.token);
-        this.context.setToken(data.token);
-        this.setState({
-          userID: data.user.id
-          //userID: this.context.user.id
-        })
+        this.context.setToken(data.token, data.user);
       })
       .catch((err) => {
         console.log(err)
@@ -55,6 +52,8 @@ class Navbar extends Component<{}, ILoginState> {
   //this function will string query the artist ID from the URL and return it as a string
 
   artistID = () => {
+    console.log(this.context);
+    console.log(this.context.user.id)
     const url = `/mygallery?artist=${this.context.user.id}`;
 
     return url;
@@ -78,7 +77,9 @@ class Navbar extends Component<{}, ILoginState> {
             <Link to={this.artistID}>
               <Button>My Gallery</Button>
             </Link>
-            <Button onClick={() => this.context.setToken(null)}>Logout</Button>
+            <Button onClick={() => {
+              this.context.setToken(null, {});
+              localStorage.removeItem('token')}}>Logout</Button>
           </div>
         ) : (
           <div className="loggedOut">
@@ -119,12 +120,12 @@ class Navbar extends Component<{}, ILoginState> {
               </div>
               <div>
                 <Button type="submit">Login</Button>
-                <Register
+              </div>
+            </Form>
+            <Register
                   buttonLabel="Register"
                   className="register"
                 />
-              </div>
-            </Form>
           </div>
         )}
       </div>

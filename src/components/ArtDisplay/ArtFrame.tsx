@@ -1,12 +1,16 @@
 import React, { Component } from 'react';
 import ArtPiece from './ArtPiece';
 import { IArtPiece, IURLProps } from '../Interfaces/Interfaces';
-import { Container, Row, Col, Button } from "reactstrap";
+import { Container, Row, Col } from "reactstrap";
 import Review from './Review';
 import PostReview from '../Modals/PostReview'
 import APIURL from '../../helpers/environment';
+import UserContext from "../../context/UserContext";
 
 class ArtFrame extends Component<IURLProps, IArtPiece> {
+    static contextType = UserContext;
+    context!: React.ContextType<typeof UserContext>;
+
     constructor(props: IURLProps) {
         super(props)
         this.state = {
@@ -22,19 +26,15 @@ class ArtFrame extends Component<IURLProps, IArtPiece> {
 
     fetchArt = () => {
         const query = new URLSearchParams(this.props.location.search);
-        console.log(query.get('art'));
-
         const artID = Number(query.get('art'))
-
-        console.log(artID)
 
         fetch(`${APIURL}/art/${artID}`)
             .then((res) => {
-                console.log(res);
+                // console.log(res);
                 return res.json();
             })
             .then((json) => {
-                console.log(json);
+                // console.log(json);
                 this.setState({
                     title: json.title,
                     artistName: json.artistName,
@@ -43,8 +43,6 @@ class ArtFrame extends Component<IURLProps, IArtPiece> {
                     id: json.id,
                     userId: json.userId
                 })
-                console.log('you set the state, congrats!')
-                console.log(this.state.images)
             })
             .catch((err) => {
                 console.log(err)
@@ -53,18 +51,16 @@ class ArtFrame extends Component<IURLProps, IArtPiece> {
 
     fetchReviews = () => {
         const query = new URLSearchParams(this.props.location.search);
-        console.log(query.get("art"));
-    
         const artID = Number(query.get("art"));
 
         fetch(`${APIURL}/reviews/tenreviews/${artID}`)
             .then((res) => {
-                console.log('reviews are being fetched');
+                // console.log('reviews are being fetched');
                 return res.json();
             })
             .then((json) => {
-                console.log(`this is the review data:`);
-                console.log(json)
+                // console.log(`this is the review data:`);
+                // console.log(json)
                 this.setState({
                     reviews: json.reviews
                 })
@@ -74,33 +70,51 @@ class ArtFrame extends Component<IURLProps, IArtPiece> {
             })
     }
 
+    isLoggedIn = () => {
+        const query = new URLSearchParams(this.props.location.search);
+        const artID = Number(query.get('art'))
+
+        if (this.context.isAuth) {
+            return (
+                <Row>
+                    <PostReview buttonLabel="Post Review" className="postReview" artID={artID} />
+                </Row>
+            )
+        } else {
+            return <></>
+        }
+    }
+
     componentDidMount() {
         this.fetchArt();
         this.fetchReviews();
     }
 
+    componentDidUpdate() {
+        this.fetchReviews();
+        this.isLoggedIn();
+    }
+
     render() {
         const query = new URLSearchParams(this.props.location.search);
-        console.log(query.get('art'));
-
         const artID = Number(query.get('art'))
 
         return (
-            <div className = "artWall">
+            <div className="artWall">
                 <ArtPiece
-                    title = {this.state.title}
-                    artArray = {this.state.images}
-                    audioLink = {this.state.audio}
+                    title={this.state.title}
+                    artArray={this.state.images}
+                    audioLink={this.state.audio}
                 />
                 <Container>
-                    <Row>
+                    {/* <Row>
                         <PostReview buttonLabel = "Post Review" className = "postReview" artID = {artID}/>
-                    </Row>
+                    </Row> */}
                     <Row>
                         {this.state.reviews.map((review) => {
                             return (
                                 <Col>
-                                    <Review rating = {review.rating} description = {review.description} />
+                                    <Review rating={review.rating} description={review.description} />
                                 </Col>
                             )
                         })}

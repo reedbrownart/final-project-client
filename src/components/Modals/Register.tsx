@@ -50,7 +50,7 @@ class Register extends Component<IModalProps, IModal> {
     })
       .then((res) => res.json())
       .then((data) => {
-        this.context.setToken(data.token);
+        this.context.setToken(data.token, data.user);
       })
 
     this.toggle();

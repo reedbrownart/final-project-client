@@ -1,3 +1,4 @@
+import userEvent from "@testing-library/user-event";
 import React, { Component } from "react";
 import { IUser } from "../components/Interfaces/Interfaces";
 
@@ -5,14 +6,14 @@ interface IUserContext {
   token: string | null;
   isAuth: boolean;
   user: IUser;
-  setToken: (token: string | null) => void;
+  setToken: (token: string | null, user: any) => void;
 }
 
 const UserContext = React.createContext<IUserContext>({
   user: {},
   token: null,
   isAuth: false,
-  setToken: (token: string | null) => {},
+  setToken: (token: string | null, user: any) => {},
 });
 
 export default UserContext;
@@ -94,9 +95,10 @@ export class UserContextProvider extends Component<
     }
   };
 
-  setToken = (token: string | null) => {
+  setToken = (token: string | null, user: any) => {
     this.setState({
       token: token,
+      user: user
     });
   };
 

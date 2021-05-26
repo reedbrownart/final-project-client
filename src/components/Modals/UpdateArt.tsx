@@ -4,7 +4,6 @@ import {
   Modal,
   ModalHeader,
   ModalBody,
-  ModalFooter,
   Form,
   FormGroup,
   Input,
@@ -61,6 +60,16 @@ class UpdateArt extends Component<IUpdateArtProps, ICreateArt> {
       modal: !this.state.modal,
     });
   };
+
+  getArt = () => {
+    fetch(`${APIURL}/art/${this.props.artID}`)
+      .then((res) => res.json())
+      .then((json) => {
+        this.setState({
+          
+        })
+      })
+  }
 
   deleteArt = () => {
     fetch(

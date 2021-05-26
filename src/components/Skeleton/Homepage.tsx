@@ -22,7 +22,7 @@ class Homepage extends Component<{}, IState> {
     fetch(`${APIURL}/art/`)
     .then((response) => response.json())
     .then((json) => {
-      console.log(json);
+      // console.log(json);
       this.setState({
         arts: json.arts,
       });
@@ -59,7 +59,7 @@ class Homepage extends Component<{}, IState> {
             <Row>
               {this.state.arts.map((art) => {
                 return (
-                  <Col>
+                  <Col key = {art.id}>
                     <Preview
                       title={art.title}
                       artist={art.artistName}

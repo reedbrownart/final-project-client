@@ -116,6 +116,7 @@ class CreateArt extends Component<ICreateArtProps, ICreateArt> {
       .then((res) => res.json())
       .then((data) => { })
       .catch((err) => console.log(err));
+
     this.toggle();
   };
 

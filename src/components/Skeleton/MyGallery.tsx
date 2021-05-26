@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Container, Row, Col, Button } from "reactstrap";
+import { Container, Row, Col } from "reactstrap";
 import { IState, IURLProps } from "../Interfaces/Interfaces";
 import CreateArt from "../Modals/CreateArt";
 // import CreateArtTest from "../Modals/CreateArtTest";
@@ -26,53 +26,44 @@ class MyGallery extends Component<IURLProps, IState> {
 
   fetchArtGallery = () => {
     const query = new URLSearchParams(this.props.location.search);
-    console.log(query.get("artist"));
-
     const artistID = Number(query.get("artist"));
 
     fetch(`${APIURL}/art/gallery/${artistID}`)
       .then((response) => response.json())
       .then((json) => {
-        console.log(json);
         this.setState({
           arts: json.arts,
         });
-        //console.log("pretty sure you stored the fetch bruv");
       });
   };
 
-  fetchReviews = () => {
-    const query = new URLSearchParams(this.props.location.search);
-    console.log(query.get("artist"));
+  // fetchReviews = () => {
+  //   const query = new URLSearchParams(this.props.location.search);
+  //   const artistID = Number(query.get("artist"));
 
-    const artistID = Number(query.get("artist"));
-
-    fetch(`${APIURL}/reviews/tenreviews/${artistID}`)
-        .then((res) => {
-            
-            return res.json();
-        })
-        .then((json) => {
-            console.log(`this is the review data:`);
-            console.log(json)
-            this.setState({
-                reviews: json.reviews
-            })
-        })
-        .catch((err) => {
-            console.log(err)
-        })
-}
+  //   fetch(`${APIURL}/reviews/tenreviews/${artistID}`)
+  //     .then((res) => {
+  //       return res.json();
+  //     })
+  //     .then((json) => {
+  //       this.setState({
+  //         reviews: json.reviews
+  //       })
+  //     })
+  //     .catch((err) => {
+  //       console.log(err)
+  //     })
+  // }
 
   // When this component mounts it will fetch the user's art
 
   componentDidMount() {
     this.fetchArtGallery();
-    this.fetchReviews();
+    // this.fetchReviews();
   }
 
   componentDidUpdate() {
-    // this.fetchArtGallery();
+    this.fetchArtGallery();
   }
 
   render() {
@@ -81,23 +72,23 @@ class MyGallery extends Component<IURLProps, IState> {
     }
     return (
       <div>
-        <h1>This is My Gallery</h1>
+        <div className = "galleryBanner">My Gallery</div>
         {/* <Button>Update Artist Profile</Button>
         <Button>View Artist Profile</Button> */}
         <CreateArt buttonLabel="Create New Art" className="createArt" />
-        <hr/>
+        <hr />
         <Container>
           <Row>
             {this.state.arts.map((art) => {
               return (
-                <Col className = "galleryCol">
+                <Col className="galleryCol" key = {art.id}>
                   <Preview
                     title={art.title}
                     thumbnail={art.images[0][0]}
                     artLink={`/art?art=${art.id}`}
                     artistLink={`/artist?artist=${art.userId}`}
                   />
-                  <UpdateArt buttonLabel = "update" className = "updateArt" artID = {art.id}/>
+                  <UpdateArt buttonLabel="update" className="updateArt" artID={art.id} />
                   {/* <Button>Get Link</Button> */}
                 </Col>
               );
