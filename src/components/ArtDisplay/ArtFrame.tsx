@@ -107,9 +107,9 @@ class ArtFrame extends Component<IURLProps, IArtPiece> {
                     audioLink={this.state.audio}
                 />
                 <Container>
-                    {/* <Row>
+                    <Row>
                         <PostReview buttonLabel = "Post Review" className = "postReview" artID = {artID}/>
-                    </Row> */}
+                    </Row>
                     <Row>
                         {this.state.reviews.map((review) => {
                             return (
