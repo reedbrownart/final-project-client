@@ -6,7 +6,7 @@ import {
 } from "react-router-dom";
 import { ILoginState } from "../Interfaces/Interfaces";
 import UserContext from '../../context/UserContext';
-import APIURL from '../../helpers/environment';
+// import APIURL from '../../helpers/environment';
 
 // Navbar accepts props from App.tsx
 // Navbar also has stateful variables for email and password so the user can login
@@ -28,7 +28,7 @@ class Navbar extends Component<{}, ILoginState> {
   handleLogin = (e: BaseSyntheticEvent) => {
     console.log('handle log in is running!')
     e.preventDefault();
-    fetch(`${APIURL}/user/login`, {
+    fetch(`${process.env.REACT_APP_GIF_GALLERY_SERVER}/user/login`, {
       method: "POST",
       body: JSON.stringify({
         email: this.state.email,

@@ -13,7 +13,7 @@ import { ICreateArt, ICreateArtProps } from "../Interfaces/Interfaces";
 import UserContext from "../../context/UserContext";
 import YoutubePreview from "./YoutubePreview";
 import GiphyPreview from "./GiphyPreview";
-import APIURL from '../../helpers/environment';
+// import APIURL from '../../helpers/environment';
 
 class CreateArt extends Component<ICreateArtProps, ICreateArt> {
   static contextType = UserContext;
@@ -93,7 +93,7 @@ class CreateArt extends Component<ICreateArtProps, ICreateArt> {
   createArt = (e: BaseSyntheticEvent) => {
     e.preventDefault();
 
-    fetch(`${APIURL}/art/create`, {
+    fetch(`${process.env.REACT_APP_GIF_GALLERY_SERVER}/art/create`, {
       method: "POST",
       body: JSON.stringify({
         title: this.state.title,

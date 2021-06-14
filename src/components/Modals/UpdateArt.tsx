@@ -13,7 +13,7 @@ import { ICreateArt, IUpdateArtProps } from "../Interfaces/Interfaces";
 import UserContext from "../../context/UserContext";
 import YoutubePreview from "./YoutubePreview";
 import GiphyPreview from "./GiphyPreview";
-import APIURL from '../../helpers/environment';
+// import APIURL from '../../helpers/environment';
 
 class UpdateArt extends Component<IUpdateArtProps, ICreateArt> {
   static contextType = UserContext;
@@ -62,7 +62,7 @@ class UpdateArt extends Component<IUpdateArtProps, ICreateArt> {
   };
 
   getArt = () => {
-    fetch(`${APIURL}/art/${this.props.artID}`)
+    fetch(`${process.env.REACT_APP_GIF_GALLERY_SERVER}/art/${this.props.artID}`)
       .then((res) => res.json())
       .then((json) => {
         this.setState({
@@ -73,7 +73,7 @@ class UpdateArt extends Component<IUpdateArtProps, ICreateArt> {
 
   deleteArt = () => {
     fetch(
-      `${APIURL}/art/delete/${this.props.artID}`,
+      `${process.env.REACT_APP_GIF_GALLERY_SERVER}/art/delete/${this.props.artID}`,
       {
         method: "DELETE",
         headers: new Headers({
@@ -92,7 +92,7 @@ class UpdateArt extends Component<IUpdateArtProps, ICreateArt> {
     console.log("updating art!");
 
     fetch(
-      `${APIURL}/art/update/${this.props.artID}`,
+      `${process.env.REACT_APP_GIF_GALLERY_SERVER}/art/update/${this.props.artID}`,
       {
         method: "PUT",
         body: JSON.stringify({

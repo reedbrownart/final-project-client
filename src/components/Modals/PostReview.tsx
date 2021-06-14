@@ -11,7 +11,7 @@ import {
 } from "reactstrap";
 import { IPostReviewState, IReviewModalProps } from "../Interfaces/Interfaces";
 import UserContext from '../../context/UserContext';
-import APIURL from '../../helpers/environment';
+// import APIURL from '../../helpers/environment';
 
 class PostReview extends Component<IReviewModalProps, IPostReviewState> {
   static contextType = UserContext;
@@ -35,7 +35,7 @@ class PostReview extends Component<IReviewModalProps, IPostReviewState> {
   postReview = (e: BaseSyntheticEvent) => {
     e.preventDefault();
 
-    fetch(`${APIURL}/reviews/create/${this.props.artID}`, {
+    fetch(`${process.env.REACT_APP_GIF_GALLERY_SERVER}/reviews/create/${this.props.artID}`, {
       method: "POST",
       body: JSON.stringify({
         rating: this.state.rating,

@@ -4,7 +4,7 @@ import { IArtPiece, IURLProps } from '../Interfaces/Interfaces';
 import { Container, Row, Col } from "reactstrap";
 import Review from './Review';
 import PostReview from '../Modals/PostReview'
-import APIURL from '../../helpers/environment';
+// import APIURL from '../../helpers/environment';
 import UserContext from "../../context/UserContext";
 
 class ArtFrame extends Component<IURLProps, IArtPiece> {
@@ -28,7 +28,7 @@ class ArtFrame extends Component<IURLProps, IArtPiece> {
         const query = new URLSearchParams(this.props.location.search);
         const artID = Number(query.get('art'))
 
-        fetch(`${APIURL}/art/${artID}`)
+        fetch(`${process.env.REACT_APP_GIF_GALLERY_SERVER}/art/${artID}`)
             .then((res) => {
                 // console.log(res);
                 return res.json();
@@ -53,7 +53,7 @@ class ArtFrame extends Component<IURLProps, IArtPiece> {
         const query = new URLSearchParams(this.props.location.search);
         const artID = Number(query.get("art"));
 
-        fetch(`${APIURL}/reviews/tenreviews/${artID}`)
+        fetch(`${process.env.REACT_APP_GIF_GALLERY_SERVER}/reviews/tenreviews/${artID}`)
             .then((res) => {
                 // console.log('reviews are being fetched');
                 return res.json();

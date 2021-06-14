@@ -7,7 +7,7 @@ import CreateArt from "../Modals/CreateArt";
 import UpdateArt from "../Modals/UpdateArt";
 import Preview from "../ArtDisplay/Preview";
 import UserContext from "../../context/UserContext";
-import APIURL from '../../helpers/environment';
+// import APIURL from '../../helpers/environment';
 
 class MyGallery extends Component<IURLProps, IState> {
   static contextType = UserContext;
@@ -28,7 +28,7 @@ class MyGallery extends Component<IURLProps, IState> {
     const query = new URLSearchParams(this.props.location.search);
     const artistID = Number(query.get("artist"));
 
-    fetch(`${APIURL}/art/gallery/${artistID}`)
+    fetch(`${process.env.REACT_APP_GIF_GALLERY_SERVER}/art/gallery/${artistID}`)
       .then((response) => response.json())
       .then((json) => {
         this.setState({

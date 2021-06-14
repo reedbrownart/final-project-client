@@ -11,7 +11,7 @@ import {
 } from "reactstrap";
 import { IModal, IModalProps } from "../Interfaces/Interfaces";
 import UserContext from '../../context/UserContext';
-import APIURL from '../../helpers/environment';
+// import APIURL from '../../helpers/environment';
 
 class Register extends Component<IModalProps, IModal> {
   static contextType = UserContext;
@@ -36,7 +36,7 @@ class Register extends Component<IModalProps, IModal> {
 
   handleRegister = (e: BaseSyntheticEvent) => {
     e.preventDefault();
-    fetch(`${APIURL}/user/register`, {
+    fetch(`${process.env.REACT_APP_GIF_GALLERY_SERVER}/user/register`, {
       method: 'POST',
       body: JSON.stringify({
         email: this.state.email,

@@ -36,7 +36,7 @@ export class UserContextProvider extends Component<
     this.state = {
       user: {},
       token: localStorage.getItem("token"),
-      isAuth: true,
+      isAuth: false,
       isLoading: true,
     };
   }
@@ -57,7 +57,7 @@ export class UserContextProvider extends Component<
   validateToken = () => {
     if (this.state.token) {
       localStorage.setItem("token", this.state.token);
-      fetch("https://gif-gallery-server.herokuapp.com/user/getprofile", {
+      fetch(`${process.env.REACT_APP_GIF_GALLERY_SERVER}/user/getprofile`, {
         headers: new Headers({
           "Content-Type": "application/json",
           Authorization: this.state.token,

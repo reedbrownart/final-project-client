@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Container, Row, Col } from "reactstrap";
 import Preview from "../ArtDisplay/Preview";
 import { IState, IURLProps } from "../Interfaces/Interfaces";
-import APIURL from '../../helpers/environment';
+// import APIURL from '../../helpers/environment';
 
 class Artist extends Component<IURLProps, IState> {
   constructor(props) {
@@ -21,7 +21,7 @@ class Artist extends Component<IURLProps, IState> {
     const artistID = Number(query.get("artist"));
 
     console.log(artistID);
-    fetch(`${APIURL}/art/gallery/${artistID}`, {
+    fetch(`${process.env.REACT_APP_GIF_GALLERY_SERVER}/art/gallery/${artistID}`, {
       method: "GET",
       headers: new Headers({
         "Content-Type": "application/json",
@@ -38,7 +38,7 @@ class Artist extends Component<IURLProps, IState> {
         console.log("pretty sure you stored the fetch bruv");
       });
 
-    fetch(`${APIURL}/user/${artistID}`)
+    fetch(`${process.env.REACT_APP_GIF_GALLERY_SERVER}/user/${artistID}`)
       .then((response) => response.json())
       .then((json) => {
         console.log(json);
